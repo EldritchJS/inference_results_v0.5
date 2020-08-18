@@ -49,13 +49,15 @@ ENV LANG=C.UTF-8
 
 ### Install necessary python 2 modules
 RUN python2 -m pip install --upgrade pip \
- && python2 -m pip install --upgrade setuptools wheel virtualenv \
+ && python2 -m pip install setuptools==44.1.1 \
+ && python2 -m pip install --upgrade setuptools==44.1.1 wheel virtualenv \
  && python2 -m pip install ez_setup==0.9 \
  && python2 -m pip install numpy \
  && python2 -m pip install absl-py==0.7.1
 
 RUN python3 -m pip install --upgrade pip \
- && python3 -m pip install --upgrade setuptools wheel virtualenv \
+ && python3 -m pip install setuptools==44.1.1 \
+ && python3 -m pip install --upgrade setuptools==44.1.1 wheel virtualenv \
  && python3 -m pip install cmake==3.11.0 \
  && python3 -m pip install pillow==6.0.0 \
  && python3 -m pip install opencv-python-headless
@@ -185,7 +187,8 @@ RUN wget https://github.com/NVlabs/cub/archive/1.8.0.zip -O cub-1.8.0.zip \
 RUN bash /opt/tensorrt/python/python_setup.sh
 
 #install libjemalloc2
-RUN echo 'deb http://archive.ubuntu.com/ubuntu disco main restricted universe multiverse' | tee -a /etc/apt/sources.list.d/disco.list \
+#RUN echo 'deb http://archive.ubuntu.com/ubuntu disco main restricted universe multiverse' | tee -a /etc/apt/sources.list.d/disco.list \
+RUN echo 'deb http://old-releases.ubuntu.com/ubuntu disco main restricted universe multiverse' | tee -a /etc/apt/sources.list.d/disco.list \
   && echo 'Package: *\nPin: release a=disco\nPin-Priority: -10\n' | tee -a /etc/apt/preferences.d/disco.pref \
   && apt-get update \
   && apt-get install --no-install-recommends -t disco -y libjemalloc2 libtcmalloc-minimal4
