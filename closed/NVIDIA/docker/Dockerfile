@@ -219,6 +219,8 @@ RUN git clone https://github.com/MJPA/SimpleJSON.git \
  && cd .. \
  && rm -rf SimpleJSON
 
+RUN mkdir -p /work
+
 # Copy repo to work directory
 COPY . /work
 

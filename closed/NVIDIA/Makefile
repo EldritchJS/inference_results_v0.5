@@ -183,6 +183,11 @@ preprocess_data:
 	@python3 scripts/preprocess_data.py --data_dir="$$DATA_DIR" --output_dir="$$PREPROCESSED_DATA_DIR"
 	@cp -RT $(DATA_DIR)/nmt $(PREPROCESSED_DATA_DIR)/nmt
 
+.PHONY: preprocess_data_no_imagenet
+preprocess_data_no_imagenet:
+	@python3 scripts/preprocess_data.py --data_dir="$$DATA_DIR" --output_dir="$$PREPROCESSED_DATA_DIR" --benchmarks="ssd-smal,ssd-large"
+	@cp -RT $(DATA_DIR)/nmt $(PREPROCESSED_DATA_DIR)/nmt
+
 # Download benchmark models (weights).
 .PHONY: download_model
 download_model: link_dataset_dir
