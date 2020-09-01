@@ -5,6 +5,9 @@
 2. NVIDIA GPU operator installed on cluster
 3. Node Feature Discovery operator installed on cluster
 
+### Create a system config if necessary
+Check out  `code/common/system_list.py` to see if your cluster's GPU configuration is already defined (e.g. T4x1 for a single T4 GPU) if not, define your configuration here. You'll also need to create a directory structure in `measurements` with the same name as your configuration. 
+
 ### Build MLPerf NVIDIA Image
 Minimal: Follow the steps of the `README.md` file in this directory to the `make build_docker` step, then push the image to the image repository of your choice (e.g. quay.io)
 Optional: Run the docker image locally, then run additional steps of the preparation process in the `README.md` file in this directory. `make download_dataset` will cause your image to be even more enormous. `make download_model` is safer. 
