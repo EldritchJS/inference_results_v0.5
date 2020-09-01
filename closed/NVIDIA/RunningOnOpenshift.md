@@ -12,7 +12,7 @@ Optional: Run the docker image locally, then run additional steps of the prepara
 ### Deploy image to OpenShift cluster 
 Assuming you have a project on the cluster, navigate to the pods section of your project and click on 'create pod'.
 
-Enter the contents of the `podsetup.yaml` file in this directory. Changing `namespace: ` value to your project namespace. 
+Enter the contents of the `podsetup.yaml` file in this directory. Changing `namespace: ` value to your project namespace. Also change the `image: ` value to your docker image name and location.  
 
 ### Acquire and preprocess data, acquire models, generate benchmark harnesses
 In the terminal, run the following `./prep.sh`
