@@ -35,19 +35,19 @@
                   limits:
                     nvidia.com/gpu: 1
    - name: Download datasets
-     command: oc rsh make download_dataset
+     command: oc rsh mlinference make download_dataset
    - name: Preprocess data
-     command: oc rsh make preprocess_data_no_imagenet
+     command: oc rsh mlinference make preprocess_data_no_imagenet
    - name: Download models
-     command: oc rsh make download_model
+     command: oc rsh mlinference make download_model
    - name: Generate engines
-     command: oc rsh make generate_engines RUN_ARGS="--benchmarks=ssd-large,gnmt --scenarios=SingleStream"
+     command: oc rsh mlinference make generate_engines RUN_ARGS="--benchmarks=ssd-large,gnmt --scenarios=SingleStream"
    - name: Run ssd-large harness
-     command: oc rsh make run_harness RUN_ARGS="--benchmarks=ssd-large --scenarios=SingleStream --test-mode=PerformanceOnly"
+     command: oc rsh mlinference make run_harness RUN_ARGS="--benchmarks=ssd-large --scenarios=SingleStream --test-mode=PerformanceOnly"
    - name: Update ssd-large results
-     command: oc rsh make update_results
+     command: oc rsh mlinference make update_results
    - name: Run gnmt harness
-     command: oc rsh make run_harness RUN_ARGS="--benchmarks=gnmt --scenarios=SingleStream --test-mode=PerformanceOnly"
+     command: oc rsh mlinference make run_harness RUN_ARGS="--benchmarks=gnmt --scenarios=SingleStream --test-mode=PerformanceOnly"
    - name: Update gnmt results
-     command: oc rsh make update_results
+     command: oc rsh mlinference make update_results
 
