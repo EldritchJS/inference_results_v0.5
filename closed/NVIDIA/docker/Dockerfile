@@ -36,7 +36,7 @@ RUN echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604
  && apt-get install -y --no-install-recommends build-essential autoconf libtool git \
         curl wget pkg-config sudo ca-certificates vim-tiny automake libssl-dev \
         bc python3-dev python3-pip python2.7-dev google-perftools gdb libglib2.0-dev clang python-pip sshfs libre2-dev \
- && apt-get install -y --no-install-recommends cuda-cudart-dev-10-1 cuda-curand-dev-10-1 cuda-nvrtc-dev-10-1 cuda-command-line-tools-10-1 libcublas-dev \
+ && apt-get install -y --no-install-recommends cuda-cudart-dev-10-1 cuda-curand-dev-10-1 cuda-nvrtc-dev-10-1 cuda-command-line-tools-10-1 \
  && ln -s cuda-10.1 /usr/local/cuda \
  && apt-get remove -y cmake \
  && apt-get remove -y libgflags-dev \
