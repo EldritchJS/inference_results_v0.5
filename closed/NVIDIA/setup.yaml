@@ -1,0 +1,53 @@
+- name: run MLPerf 
+  hosts: localhost
+  gather_facts: no
+  become: no
+  tasks:
+  - name: deploy mlinference pod
+    k8s:
+      state: present
+      apply: yes
+      namespace: {{ project_name }}
+      definition:
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: mlinference
+          labels:
+            name: mlinference
+        spec:
+        - restartPolicy: OnFailure
+          containers:
+            - name: mlinference
+                image: quay.io/eldritchjs/mlperf-inference-nvidia:updated
+                command: ["/bin/bash", "-ec", "cd /work; tail -f /dev/null " ]
+                runAsUser: 1000
+                env: 
+                  - name: NVIDIA_VISIBLE_DEVICES
+                    value: all
+                  - name: NVIDIA_DRIVER_CAPABILITIES
+                    value: "compute,utility"
+                  - name: NVIDIA_REQUIRE_CUDA
+                    value: "cuda>=5.0"
+                securityContext:
+                  privileged: true
+                resources:
+                  limits:
+                    nvidia.com/gpu: 1
+   - name: Download datasets
+     command: oc rsh make download_dataset
+   - name: Preprocess data
+     command: oc rsh make preprocess_data_no_imagenet
+   - name: Download models
+     command: oc rsh make download_model
+   - name: Generate engines
+     command: oc rsh make generate_engines RUN_ARGS="--benchmarks=ssd-large,gnmt --scenarios=SingleStream"
+   - name: Run ssd-large harness
+     command: oc rsh make run_harness RUN_ARGS="--benchmarks=ssd-large --scenarios=SingleStream --test-mode=PerformanceOnly"
+   - name: Update ssd-large results
+     command: oc rsh make update_results
+   - name: Run gnmt harness
+     command: oc rsh make run_harness RUN_ARGS="--benchmarks=gnmt --scenarios=SingleStream --test-mode=PerformanceOnly"
+   - name: Update gnmt results
+     command: oc rsh make update_results
+
